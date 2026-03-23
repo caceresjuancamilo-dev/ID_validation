@@ -92,7 +92,7 @@ async def procesar_cedula(nombre: str, cedula: str) -> dict:
         estado = "RECHAZADO_LICENCIA"
     elif tiene_multas:
         estado = "RECHAZADO_MULTAS"
-    elif coincidencia < 60:
+    elif coincidencia < 32:
         estado = "RECHAZADO_NOMBRE"
     else:
         estado = "APROBADO"
