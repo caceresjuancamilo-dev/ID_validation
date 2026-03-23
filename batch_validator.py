@@ -49,9 +49,17 @@ def get_sheet():
     return gc.open_by_key(SHEET_ID).worksheet(SHEET_NAME)
 
 
+import unicodedata
+
+def normalizar(texto: str) -> str:
+    return ''.join(
+        c for c in unicodedata.normalize('NFD', texto.upper())
+        if unicodedata.category(c) != 'Mn'
+    )
+
 def calcular_coincidencia(nombre_digitado: str, nombre_runt: str) -> int:
-    nd = nombre_digitado.upper().strip()
-    nr = nombre_runt.upper().strip()
+    nd = normalizar(nombre_digitado)
+    nr = normalizar(nombre_runt)
     palabras = [p for p in nd.split() if len(p) > 1]
     if not palabras:
         return 0
