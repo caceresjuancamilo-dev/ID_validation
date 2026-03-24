@@ -100,7 +100,7 @@ async def procesar_cedula(nombre: str, cedula: str) -> dict:
         estado = "RECHAZADO_LICENCIA"
     elif tiene_multas:
         estado = "RECHAZADO_MULTAS"
-    elif coincidencia < 32:
+    elif coincidencia < 60:
         estado = "RECHAZADO_NOMBRE"
     else:
         estado = "APROBADO"
@@ -150,17 +150,17 @@ async def run_batch():
 
         cedula = cedula.replace(" ", "")
 
-        # Saltar si ya fue procesada (columna K tiene valor)
-        if len(row) > 10 and row[10].strip():
+        # Saltar si ya fue procesada (columna O tiene valor)
+        if len(row) > 14 and row[14].strip():
             print(f"  Fila {fila_sheet} ya procesada, saltando...", flush=True)
             continue
 
         try:
             resultado = await procesar_cedula(nombre, cedula)
 
-            # Escribir columnas D a K
+            # Escribir columnas H a O
             sheet.update(
-                range_name=f"D{fila_sheet}:K{fila_sheet}",
+                range_name=f"H{fila_sheet}:O{fila_sheet}",
                 values=[[
                     resultado["nombre_runt"],
                     resultado["coincidencia"],
