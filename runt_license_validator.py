@@ -35,7 +35,7 @@ except ImportError:
 
 URL = "https://portalpublico.runt.gov.co/#/consulta-ciudadano-documento/consulta/consulta-ciudadano-documento"
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
-CAPTCHA_REINTENTOS = 3
+CAPTCHA_REINTENTOS = 5
 TIMEOUT_MS = 30_000
 
 
