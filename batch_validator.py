@@ -175,16 +175,20 @@ async def run_batch():
             print(f"  Fila {fila_sheet} -> {resultado['estado_final']}", flush=True)
             procesadas += 1
 
-            # Pausa entre requests para no sobrecargar
-            await asyncio.sleep(3)
+            # Pausa entre requests para no sobrecargar el RUNT
+            await asyncio.sleep(8)
 
         except Exception as e:
             print(f"  Error fila {fila_sheet}: {e}", flush=True)
-            sheet.update(
-                range_name=f"K{fila_sheet}",
-                values=[[f"ERROR: {str(e)[:50]}"]]
-            )
+            try:
+                sheet.update(
+                    range_name=f"O{fila_sheet}",
+                    values=[[f"ERROR: {str(e)[:50]}"]]
+                )
+            except Exception:
+                pass
             errores += 1
+            await asyncio.sleep(5)
 
     return {"procesadas": procesadas, "errores": errores}
 
