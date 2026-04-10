@@ -126,14 +126,7 @@ async def validar_licencia(cedula: str) -> dict:
     async with async_playwright() as pw:
         browser = await pw.chromium.launch(
             headless=True,
-            args=[
-                "--no-sandbox",
-                "--disable-dev-shm-usage",
-                "--disable-gpu",
-                "--single-process",
-                "--no-zygote",
-                "--disable-setuid-sandbox",
-            ],
+            args=["--no-sandbox", "--disable-dev-shm-usage"],
         )
         page = await browser.new_page()
         await page.set_viewport_size({"width": 1280, "height": 900})
