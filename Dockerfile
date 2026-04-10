@@ -10,4 +10,4 @@ RUN python -m playwright install --with-deps chromium
 
 COPY *.py .
 
-CMD gunicorn --bind 0.0.0.0:$PORT --timeout 180 --workers 1 --log-level debug --preload runt_api:app
+CMD python -c "import runt_api; print('OK')"
