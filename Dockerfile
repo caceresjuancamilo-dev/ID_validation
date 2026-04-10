@@ -5,8 +5,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN python -m playwright install --with-deps chromium
-
 COPY *.py .
 
-CMD gunicorn --bind 0.0.0.0:$PORT --timeout 180 --workers 1 runt_api:app
+EXPOSE 5050
+CMD ["gunicorn", "--bind", "0.0.0.0:5050", "--timeout", "180", "--workers", "1", "runt_api:app"]
