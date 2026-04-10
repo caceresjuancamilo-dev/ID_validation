@@ -34,7 +34,14 @@ async def consultar_simit(cedula: str) -> dict:
     async with async_playwright() as pw:
         browser = await pw.chromium.launch(
             headless=True,
-            args=["--no-sandbox", "--disable-dev-shm-usage"],
+            args=[
+                "--no-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-gpu",
+                "--single-process",
+                "--no-zygote",
+                "--disable-setuid-sandbox",
+            ],
         )
         context = await browser.new_context(
             user_agent=(
