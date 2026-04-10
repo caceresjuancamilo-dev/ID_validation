@@ -5,10 +5,9 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN playwright install chromium --with-deps
+# Forzar reinstalación de browsers con dependencias del sistema
+RUN python -m playwright install --with-deps chromium
 
 COPY *.py .
 
-EXPOSE 8080
-
-CMD gunicorn --bind 0.0.0.0:$PORT --timeout 180 --workers 1 --log-level debug runt_api:app
+CMD gunicorn --bind 0.0.0.0:$PORT --timeout 180 --workers 1 --log-level debug --preload runt_api:app
